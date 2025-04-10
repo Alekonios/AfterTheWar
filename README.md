@@ -1,2 +1,2 @@
 # AfterTheWar
-WW1
+WW1 yes yes
