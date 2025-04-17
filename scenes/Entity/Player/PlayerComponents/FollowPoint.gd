@@ -10,7 +10,7 @@ extends Node
 enum STATE { STATIC, FOLLOWING, IDLE}
 var state = STATE.STATIC
 
-@export var move_away = 1
+@export var move_away = 0.3
 var follow_treshold: float = 2.0
 var smoothing_speed: float = 0.05
 var smoothing_speed_alt: float = 0.008
@@ -39,7 +39,7 @@ func keep_distance_to_player():
 
 		STATE.FOLLOWING:
 			print("follow")
-			camera_follow.position = lerp(camera_follow.position, player.position + Vector3(0, 1, move_away * direction), smoothing_speed * delta)
+			camera_follow.position = lerp(camera_follow.position, player.position + Vector3(0, 1, move_away * direction), 0.02 * delta)
 			if distance_to_player <= 1.1 and player.is_walking == false:
 				state = STATE.STATIC
 
