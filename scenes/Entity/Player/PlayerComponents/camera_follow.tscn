@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgpadh8aa612p"]
+
+[ext_resource type="Script" uid="uid://d0ekem3b1qs4y" path="res://scenes/Entity/Player/PlayerComponents/FollowPoint.gd" id="1_syevw"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_syevw"]
+shading_mode = 0
+albedo_color = Color(0.259439, 1, 0.998854, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_au5rr"]
+material = SubResource("ORMMaterial3D_syevw")
+
+[node name="CameraFollow" type="Node3D" node_paths=PackedStringArray("Reset_To_Idle_Timer")]
+unique_name_in_owner = true
+script = ExtResource("1_syevw")
+Reset_To_Idle_Timer = NodePath("Reset_To_Idle_Timer")
+
+[node name="Reset_To_Idle_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_au5rr")
+
+[connection signal="timeout" from="Reset_To_Idle_Timer" to="." method="_on_reset_to_idle_timer_timeout"]

@@ -1,5 +1,5 @@
-class_name  Movement
 
+class_name Movement
 extends CharacterBody3D
 
 @export_category("Stats")
@@ -17,7 +17,8 @@ var Gravity
 @export var FloorJumpTimer : Timer
 
 var WantJump = true
-
+var is_walking: bool = false
+	
 func _ready() -> void:
 	Speed = StartGravity
 	JumpVel = StartJump
@@ -26,6 +27,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
+
 	var InputDir = Input.get_vector("MoveUp", "MoveDown", "MoveLeft", "MoveRight")
 	var Direction = (transform.basis * Vector3(InputDir.x, 0.0, InputDir.y)).normalized()
 	if Direction:
@@ -33,10 +35,11 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, -Direction.z * Speed, 0.2)
 		DebugMoveVis.look_at(Direction + position)
 		Model.rotation.y = lerp_angle(Model.rotation.y, -DebugMoveVis.rotation.y, 0.2)
+		is_walking = true
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 0.2)
 		velocity.z = lerp(velocity.z, 0.0, 0.2)
-		
+		is_walking = false
 		
 		
 	if Input.is_action_just_pressed("Jump") and WantJump or !FloorJumpTimer.is_stopped():
@@ -51,5 +54,3 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	move_and_slide()
-		
-		
