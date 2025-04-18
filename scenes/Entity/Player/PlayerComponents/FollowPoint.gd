@@ -1,5 +1,5 @@
+class_name CameraManager
 
-class_name FollowPoint
 extends Node
 
 @export var player: CharacterBody3D
@@ -50,6 +50,6 @@ func keep_distance_to_player():
 				##state = STATE.FOLLOWING
 
 func camera_look_at():
-	camera.look_at(camera_follow.position)
+	camera.look_at(player.position)
 	camera.rotation.y = clamp(camera.rotation.y, deg_to_rad(60) , deg_to_rad(120))
 	camera.global_position.z = lerp(camera.global_position.z, camera_follow.global_position.z, 0.1 * delta)
