@@ -6,3 +6,5 @@ extends Node
 @export var _MoveMent : Movement
 @export var _CameraManager : CameraManager
 @export var _StateMachine : StateMachineComponent
+
+@export var _FixedCamera: FixedCameraComponent
