@@ -10,7 +10,6 @@ var Speed
 var JumpVel
 var Gravity
 
-
 @export_category("Nodes")
 @export var Model : Node3D
 @export var DebugMoveVis : Node3D
@@ -18,16 +17,13 @@ var Gravity
 
 var WantJump = true
 var is_walking: bool = false
-	
+
 func _ready() -> void:
 	Speed = StartGravity
 	JumpVel = StartJump
 	Gravity = StartGravity
 
-
 func _physics_process(delta: float) -> void:
-	
-
 	var InputDir = Input.get_vector("MoveUp", "MoveDown", "MoveLeft", "MoveRight")
 	var Direction = (transform.basis * Vector3(InputDir.x, 0.0, InputDir.y)).normalized()
 	if Direction:
@@ -40,17 +36,23 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, 0.0, 0.2)
 		velocity.z = lerp(velocity.z, 0.0, 0.2)
 		is_walking = false
+
+
+	if WantJump:
+		if Input.is_action_just_pressed("Jump"):
+			velocity.y = JumpVel
 		
-		
-	if Input.is_action_just_pressed("Jump") and WantJump or !FloorJumpTimer.is_stopped():
-		velocity.y = JumpVel
-		if FloorJumpTimer.is_stopped():
-			FloorJumpTimer.start()
-		
-	if is_on_floor():
+	if is_on_floor() and !WantJump:
 		WantJump = true
 		
+	elif WantJump and FloorJumpTimer.is_stopped():
+		FloorJumpTimer.start()
+	
 	if !is_on_floor():
 		velocity += get_gravity() * delta
 	
 	move_and_slide()
+
+
+func _on_floor_jump_time_timeout() -> void:
+	WantJump = false
