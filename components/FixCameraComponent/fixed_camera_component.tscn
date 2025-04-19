@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://glv28q0ujqnu"]
+
+[ext_resource type="Script" uid="uid://bbkqq2mh6pmt" path="res://components/FixCameraComponent/FixedCameraComponent.gd" id="1_q4ueb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q4ueb"]
+size = Vector3(6.32935, 3.65869, 5.99219)
+
+[node name="FixedCameraComponent" type="Node3D" node_paths=PackedStringArray("FixedCamera", "CameraArea")]
+script = ExtResource("1_q4ueb")
+FixedCamera = NodePath("Camera3D")
+CameraArea = NodePath("Area3D")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.862876, 0, -0.505416, 0.0905692, 0.983813, 0.154625, 0.497235, -0.179197, 0.848908, -2.20308, 1.94098, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.435669, 1.32935, -0.710938)
+shape = SubResource("BoxShape3D_q4ueb")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

@@ -6,7 +6,7 @@ extends CharacterBody3D
 
 @export_category("Stats")
 @export var StartSpeed : float = 2.0
-@export var StartJump : float = 3.0
+@export var StartJump : float = 6.0
 @export var StartGravity = 2
 @export var RunSpeed : float = 2.0
 
@@ -61,8 +61,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Jump"):
 			velocity.y = JumpVel
 			_Components._StateMachine.Jump()
-			velocity.x = lerp(velocity.x, Direction.x * 5, 1)
-			velocity.z = lerp(velocity.z, -Direction.z * 5, 1)
+			velocity.x = lerp(velocity.x, Direction.x * 7.5, 1)
+			velocity.z = lerp(velocity.z, -Direction.z * 7.5, 1)
 		
 	if is_on_floor() and !WantJump:
 		WantJump = true
@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 		FloorJumpTimer.start()
 	
 	if !is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * delta * StartGravity
 	
 	move_and_slide()
 
