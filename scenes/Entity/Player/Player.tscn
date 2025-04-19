@@ -24218,7 +24218,7 @@ albedo_color = Color(0.259439, 1, 0.998854, 1)
 material = SubResource("ORMMaterial3D_syevw")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h85u8"]
-radius = 0.194271
+radius = 0.313869
 height = 1.68497
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_h85u8"]
@@ -24418,9 +24418,8 @@ nodes/output/position = Vector2(2140, 100)
 node_connections = [&"BasicMovement", 0, &"Idle_", &"BasicMovement", 1, &"Walk_", &"BasicMovement", 2, &"Run_", &"Crouch", 0, &"CrouchIdle_", &"Crouch", 1, &"CrouchWalk_", &"Crouch", 2, &"QuietWalk_", &"HangMovement", 0, &"Hanging_", &"HangMovement", 1, &"GrabLeft_", &"HangMovement", 2, &"GrabRight_", &"Jump", 0, &"list", &"Jump", 1, &"Jumps", &"Jumps", 0, &"Jump_", &"Jumps", 1, &"JumpRun_", &"Landing", 0, &"OtherComponents", &"Landing", 1, &"LandingTrans", &"LandingTrans", 0, &"Landing1", &"LandingTrans", 1, &"landing2", &"OtherComponents", 0, &"Jump", &"OtherComponents", 1, &"fall", &"list", 0, &"BasicMovement", &"list", 1, &"Crouch", &"list", 2, &"HangMovement", &"output", 0, &"Landing"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sykiu"]
+transparency = 1
 shading_mode = 0
-diffuse_mode = 3
-specular_mode = 1
 albedo_color = Color(0.494013, 0.912683, 0.819558, 1)
 refraction_scale = 1.0
 disable_receive_shadows = true
@@ -24994,7 +24993,7 @@ parameters/list/current_index = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.107997, 0, 0, 0, 1, 0, 0, 0)
-transparency = 0.9
+transparency = 0.65
 mesh = SubResource("TorusMesh_r23lm")
 
 [connection signal="timeout" from="FloorJumpTime" to="." method="_on_floor_jump_time_timeout"]
