@@ -2,6 +2,7 @@ class_name CameraManager
 
 extends Node
 
+@export var _Components : Components
 @export var player: CharacterBody3D
 @export var camera: Camera3D
 @export var camera_follow: Node3D
@@ -39,7 +40,7 @@ func keep_distance_to_player():
 		STATE.FOLLOWING:
 			#print("follow")
 			camera_follow.position = lerp(camera_follow.position, player.position + Vector3(0, 1, move_away * direction), 0.02 * delta)
-			if distance_to_player <= 1.1 and player.is_walking == false:
+			if distance_to_player <= 1.1 and _Components._StateMachine.CurrentState.name.to_lower() != "movestate":
 				state = STATE.STATIC
 
 		#STATE.IDLE:
