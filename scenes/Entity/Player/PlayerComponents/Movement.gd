@@ -10,11 +10,13 @@ extends CharacterBody3D
 
 @export_category("SharedVariables")
 @export var Speed : float
+@export var RunSpeed : float
 @export var Gravity : float
 @export var JumpSpeed : float
 
 func _ready() -> void:
 	Speed = StartSpeed
+	RunSpeed = Speed * RunRatio
 	Gravity = StartGravity
 	JumpSpeed = StartJumpSpeed
 	
@@ -79,23 +81,3 @@ func _physics_process(delta: float) -> void:
 			##_Components._StateMachine.Condition = _Components._StateMachine.BasicMovementStates.Idle
 #
 #
-	#if WantJump:
-		#if Input.is_action_just_pressed("Jump"):
-			#velocity.y = JumpVel
-			#_Components._StateMachine.Jump()
-			#velocity.x = lerp(velocity.x, Direction.x * 7.5, 1)
-			#velocity.z = lerp(velocity.z, -Direction.z * 7.5, 1)
-		#
-	#if is_on_floor() and !WantJump:
-		#WantJump = true
-		#
-	#elif WantJump and FloorJumpTimer.is_stopped():
-		#FloorJumpTimer.start()
-	#
-	
-	#
-	
-#
-#
-#func _on_floor_jump_time_timeout() -> void:
-	#WantJump = false

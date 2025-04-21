@@ -1,8 +1,10 @@
 extends State
 
+@export var FloorCheckCollider : RayCast3D
+
 @onready var Animator = %AnimationTree
 
-func Enter():
+func Enter(Argument):
 	pass
 	
 func Update(delta):
@@ -11,5 +13,10 @@ func Update(delta):
 	Animator.set("parameters/BasicMovement/transition_request", "Idle")
 	var InputDir = Input.get_vector("MoveUp", "MoveDown", "MoveLeft", "MoveRight")
 	if InputDir.normalized():
-		_StateMachine.ChangeState(self, "MoveState")
+		_StateMachine.ChangeState(self, "MoveState", null)
+	if Input.is_action_just_pressed("Jump"):
+		_StateMachine.ChangeState(self, "Jump", null)
+	if !FloorCheckCollider.is_colliding() and !_Player.is_on_floor():
+		_StateMachine.ChangeState(self, "Fall", null)
+
 	

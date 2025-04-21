@@ -26,11 +26,11 @@ func _process(delta: float) -> void:
 		return
 	CurrentState.Update(delta)
 	
-func ChangeState(SourseState : State, NewState : String):
+func ChangeState(SourseState : State, NewState : String, Argument):
 	if SourseState.name.to_lower() == NewState.to_lower():
 		return
 	CurrentState = States.get(NewState.to_lower())
-	CurrentState.Enter()
+	CurrentState.Enter(Argument)
 		
 	
 	
