@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2taegxcxsxu6"
-path.s3tc="res://.godot/imported/Grass_green.png-e12aba5bb0a21ed11e0af8caec0c3e6d.s3tc.ctex"
+uid="uid://dovaxc71ff3b3"
+path.s3tc="res://.godot/imported/ground_with_rocks_01_normal_dx_1k.png-c8be20419405582417438226615c5f43.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/Grass_green.png"
-dest_files=["res://.godot/imported/Grass_green.png-e12aba5bb0a21ed11e0af8caec0c3e6d.s3tc.ctex"]
+source_file="res://assets/textures/GroundTexture/ground_with_rocks_01_normal_dx_1k.png"
+dest_files=["res://.godot/imported/ground_with_rocks_01_normal_dx_1k.png-c8be20419405582417438226615c5f43.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://assets/textures/GroundTexture/ground_with_rocks_01_normal_dx_1k.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

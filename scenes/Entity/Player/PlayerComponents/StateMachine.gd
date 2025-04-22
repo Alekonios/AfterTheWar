@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 	CurrentState.Update(delta)
 	
 func ChangeState(SourseState : State, NewState : String, Argument):
-	if SourseState.name.to_lower() == NewState.to_lower():
+	if SourseState.name.to_lower() == NewState.to_lower() and NewState == null:
 		return
 	CurrentState = States.get(NewState.to_lower())
 	CurrentState.Enter(Argument)
