@@ -17,7 +17,7 @@ func Update(delta):
 	if FloorCollider.is_colliding() and !Debug:
 		FallTimer.stop()
 		Animator.set("parameters/OtherComponents/transition_request", "BaseMovement")
-		if time < 3:
+		if time < 2:
 			Animator.set("parameters/LandingTrans/transition_request", "LightLanding")
 			print("легкое призмление сработало")
 		else:
@@ -35,11 +35,10 @@ func Exit(Argument):
 	Debug = false
 	time = 1
 	FallTimer.stop()
-	_StateMachine.ChangeState(self, "Idle", null)
 	
 #привязка к этой функции через ключ анимации, Дима соси
 func land():
-	Exit(null)
+	_StateMachine.ChangeState(self, "Idle", null)
 	
 
 func _on_fall_timer_timeout() -> void:

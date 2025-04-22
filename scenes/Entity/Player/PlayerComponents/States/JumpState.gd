@@ -12,12 +12,13 @@ func Enter(Argument):
 			_Player.velocity.x = lerp(_Player.velocity.x, Argument.x * 5, 3.0)
 			_Player.velocity.z = lerp(_Player.velocity.z, -Argument.z * 5, 3.0)
 		Animator.set("parameters/Jump/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-	Exit(null)
+	_StateMachine.ChangeState(self, "MoveState", null)
 func Update(delta):
 	pass
 		
 func Exit(Argument):
-	_StateMachine.ChangeState(self, "MoveState", null)
+	pass
+	
 
 func _on_floor_jump_time_timeout() -> void:
 	WantJump = false

@@ -4,12 +4,14 @@ extends CharacterBody3D
 
 @export_category("Setting")
 @export var StartSpeed : float = 2.0
+@export var CrouchRatio : float = 0.5
 @export var RunRatio : float = 2.0
 @export var StartGravity : float = 2.0
 @export var StartJumpSpeed : float = 6.0
 
 @export_category("SharedVariables")
 @export var Speed : float
+@export var CrouchSpeed : float
 @export var RunSpeed : float
 @export var Gravity : float
 @export var JumpSpeed : float
@@ -24,6 +26,8 @@ func _physics_process(delta: float) -> void:
 	if !is_on_floor():
 		velocity += get_gravity() * delta * StartGravity
 	move_and_slide()
+	
+	%FpsLabel.text = str(Engine.get_frames_per_second())
 
 
 #@export var _Components : Components
