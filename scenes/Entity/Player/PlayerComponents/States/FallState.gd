@@ -43,6 +43,5 @@ func land():
 
 func _on_fall_timer_timeout() -> void:
 	print("сука")
-	print(time)
 	time += 1
 	

@@ -1,5 +1,6 @@
 extends State
 
+@export var CeilingCollider : ShapeCast3D
 @export var FloorCheckCollider : RayCast3D
 @export var Model : Node3D
 @export var DebugMoveVis : Node3D
@@ -31,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		_StateMachine.ChangeState(self, "CrouchIdle", null)
 	if !InputDir:
 		Animator.set("parameters/Crouch/transition_request", "CrouchIdle")
-	if !Input.is_action_pressed("Crouch"):
+	if !Input.is_action_pressed("Crouch") and !CeilingCollider.is_colliding():
 		Animator.set("parameters/list/transition_request", "BasicMovement")
 		_StateMachine.ChangeState(self, "Idle", null)
 func Exit(Argument):
