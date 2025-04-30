@@ -2,6 +2,8 @@ class_name Player
 
 extends CharacterBody3D
 
+@export var _Components : Components
+
 @export_category("Setting")
 @export var StartSpeed : float = 2.0
 @export var CrouchRatio : float = 0.5
@@ -23,8 +25,7 @@ func _ready() -> void:
 	JumpSpeed = StartJumpSpeed
 	
 func _physics_process(delta: float) -> void:
-	if !is_on_floor():
-		velocity += get_gravity() * delta * StartGravity
+	velocity += get_gravity() * delta * Gravity
 		
 	move_and_slide()
 	

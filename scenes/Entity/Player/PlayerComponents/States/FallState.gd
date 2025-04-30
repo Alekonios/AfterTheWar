@@ -1,5 +1,7 @@
 extends State
 
+@export var CheckWallCollider : RayCast3D
+@export var CheckAirWallCollider : RayCast3D
 @export var FallTimer : Timer
 @export var FloorCollider : RayCast3D
 
@@ -19,17 +21,15 @@ func Update(delta):
 		Animator.set("parameters/OtherComponents/transition_request", "BaseMovement")
 		if time < 2:
 			Animator.set("parameters/LandingTrans/transition_request", "LightLanding")
-			print("легкое призмление сработало")
 		else:
 			Animator.set("parameters/LandingTrans/transition_request", "HardLanding")
-			print("тяжелое призмление сработало")
 			
 		Animator.set("parameters/Landing/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		_Player.velocity.x = 0.0
 		_Player.velocity.z = 0.0
 		Debug = true
-		
-		
+	if CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
+		_StateMachine.ChangeState(self, "GrabIdle", null)
 		
 func Exit(Argument):
 	Debug = false
@@ -42,6 +42,5 @@ func land():
 	
 
 func _on_fall_timer_timeout() -> void:
-	print("сука")
 	time += 1
 	
