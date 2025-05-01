@@ -34,6 +34,7 @@ func Update(delta):
 func Exit(Argument):
 	Debug = false
 	time = 1
+	Animator.set("parameters/OtherComponents/transition_request", "BaseMovement")
 	FallTimer.stop()
 	
 #привязка к этой функции через ключ анимации, Дима соси

@@ -19,6 +19,8 @@ func Update(delta):
 		_StateMachine.ChangeState(self, "GrabMove", null)
 	if !CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
 		_StateMachine.ChangeState(self, "Idle", null)
+	if Input.is_action_just_pressed("Jump"):
+		_StateMachine.ChangeState(self, "Jump", null)
 		
 func Exit(Argument):
 	Animator.set("parameters/list/transition_request", "BasicMovement")

@@ -6,6 +6,7 @@ extends CharacterBody3D
 
 @export_category("Setting")
 @export var StartSpeed : float = 2.0
+@export var StartGrabSpeed : float = 0.5
 @export var CrouchRatio : float = 0.5
 @export var RunRatio : float = 2.0
 @export var StartGravity : float = 2.0
@@ -13,6 +14,7 @@ extends CharacterBody3D
 
 @export_category("SharedVariables")
 @export var Speed : float
+@export var GrabSpeed : float 
 @export var CrouchSpeed : float
 @export var RunSpeed : float
 @export var Gravity : float
@@ -23,12 +25,14 @@ func _ready() -> void:
 	RunSpeed = Speed * RunRatio
 	Gravity = StartGravity
 	JumpSpeed = StartJumpSpeed
+	GrabSpeed = StartGrabSpeed
 	
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta * Gravity
 		
 	move_and_slide()
 	
+	print($Vis/DebugMoveVis.global_rotation)
 	%FpsLabel.text = str(Engine.get_frames_per_second())
 
 
