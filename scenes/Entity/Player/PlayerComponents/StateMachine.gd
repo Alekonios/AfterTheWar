@@ -25,7 +25,6 @@ func _process(delta: float) -> void:
 	if !CurrentState:
 		return
 	CurrentState.Update(delta)
-	%DebugLabel.text = str(CurrentState)
 	
 func ChangeState(SourseState : State, NewState : String, Argument):
 	if SourseState.name.to_lower() == NewState.to_lower() and NewState == null:

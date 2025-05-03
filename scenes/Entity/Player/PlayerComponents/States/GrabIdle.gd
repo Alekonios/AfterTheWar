@@ -3,6 +3,8 @@ extends State
 @export var CheckWallCollider : RayCast3D
 @export var CheckAirWallCollider : RayCast3D
 
+@export var DebugDir : Node3D
+
 @onready var Animator = %AnimationTree
 
 func Enter(Argument):
@@ -17,12 +19,16 @@ func Update(delta):
 	var InputDir = Input.get_vector("MoveUp", "MoveDown", "MoveLeft", "MoveRight")
 	if InputDir.normalized():
 		_StateMachine.ChangeState(self, "GrabMove", null)
-	if !CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
+	if !CheckWallCollider.is_colliding() or CheckAirWallCollider.is_colliding():
 		_StateMachine.ChangeState(self, "Idle", null)
 	if Input.is_action_just_pressed("Jump"):
+		CheckWallCollider.enabled = false
 		_StateMachine.ChangeState(self, "Jump", null)
+		_Player.velocity.y = _Player.JumpSpeed * 1.8
 		
 func Exit(Argument):
-	Animator.set("parameters/list/transition_request", "BasicMovement")
-	_Player.Gravity = _Player.StartGravity
-	
+	if _StateMachine.CurrentState.name != "GrabMove":
+		Animator.set("parameters/list/transition_request", "BasicMovement")
+		_Player.Gravity = _Player.StartGravity
+		_Player.JumpSpeed = _Player.StartJumpSpeed
+	CheckWallCollider.enabled = true

@@ -2,6 +2,8 @@ extends State
 
 @onready var Animator = %AnimationTree
 
+@export var CheckWallCollider : RayCast3D
+@export var CheckAirWallCollider : RayCast3D
 @export var FloorCheckCollider : RayCast3D
 @export var Model : Node3D
 @export var DebugMoveVis : Node3D
@@ -39,9 +41,11 @@ func _physics_process(delta: float) -> void:
 			"Walk":
 				_StateMachine.ChangeState(self, "Jump", Direction * 0.3)
 			"Run":
-				_StateMachine.ChangeState(self, "Jump", Direction )
+				_StateMachine.ChangeState(self, "Jump", Direction)
 	if Input.is_action_pressed("Crouch"):
 		_StateMachine.ChangeState(self, "CrouchIdle", null)
+	if CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
+		_StateMachine.ChangeState(self, "GrabIdle", null)
 	
 func Exit(Argument):
 	pass
