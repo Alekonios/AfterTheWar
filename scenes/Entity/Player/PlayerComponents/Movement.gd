@@ -92,3 +92,11 @@ func _physics_process(delta: float) -> void:
 			##_Components._StateMachine.Condition = _Components._StateMachine.BasicMovementStates.Idle
 #
 #
+
+
+func _on_camera_controller_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.
+
+
+func _on_camera_controller_body_exited(body: Node3D) -> void:
+	pass # Replace with function body.
