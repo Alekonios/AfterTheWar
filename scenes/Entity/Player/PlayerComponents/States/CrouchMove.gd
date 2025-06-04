@@ -33,7 +33,8 @@ func _physics_process(delta: float) -> void:
 	if !InputDir:
 		Animator.set("parameters/Crouch/transition_request", "CrouchIdle")
 	if !Input.is_action_pressed("Crouch") and !CeilingCollider.is_colliding():
-		Animator.set("parameters/list/transition_request", "BasicMovement")
+		_Player.Gravity = _Player.StartGravity
 		_StateMachine.ChangeState(self, "Idle", null)
+		
 func Exit(Argument):
-	pass
+	Animator.set("parameters/list/transition_request", "BasicMovement")

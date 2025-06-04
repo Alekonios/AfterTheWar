@@ -2,8 +2,6 @@ extends State
 
 @onready var Animator = %AnimationTree
 
-@export var CheckWallCollider : RayCast3D
-@export var CheckAirWallCollider : RayCast3D
 @export var FloorCheckCollider : RayCast3D
 @export var Model : Node3D
 @export var DebugMoveVis : Node3D
@@ -18,18 +16,20 @@ func Update(delta):
 		_StateMachine.ChangeState(self, "Fall", null)
 	
 func _physics_process(delta: float) -> void:
+	print(_Player.velocity.z)
 	if _StateMachine.CurrentState.name.to_lower() != StateName.to_lower():
 		return
 	var InputDir = Input.get_vector("MoveUp", "MoveDown", "MoveLeft", "MoveRight")
 	var Direction = (_Player.transform.basis * Vector3(InputDir.x, 0.0, InputDir.y)).normalized()
 	if Direction:
-		_Player.velocity.x = lerp(_Player.velocity.x, Direction.x * _Player.Speed, 0.2)
+		_Player.velocity.x = lerp(_Player.velocity.x, Direction.x * _Player.Speed , 0.2)
 		_Player.velocity.z = lerp(_Player.velocity.z, -Direction.z * _Player.Speed, 0.2)
 		DebugMoveVis.look_at(Direction + _Player.position)
 		Model.rotation.y = lerp_angle(Model.rotation.y, -DebugMoveVis.rotation.y, 0.2)
 		Animator.set("parameters/BasicMovement/transition_request", AnimName)
 	else:
-		_StateMachine.ChangeState(self, "Idle", null)
+		if _Player.is_on_floor():
+			_StateMachine.ChangeState(self, "Idle", null)
 	if Input.is_action_pressed("Run"):
 		_Player.Speed = lerp(_Player.Speed, _Player.RunSpeed, 0.2)
 		AnimName = "Run"
@@ -41,11 +41,9 @@ func _physics_process(delta: float) -> void:
 			"Walk":
 				_StateMachine.ChangeState(self, "Jump", Direction * 0.3)
 			"Run":
-				_StateMachine.ChangeState(self, "Jump", Direction)
+				_StateMachine.ChangeState(self, "Jump", Direction )
 	if Input.is_action_pressed("Crouch"):
 		_StateMachine.ChangeState(self, "CrouchIdle", null)
-	if CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
-		_StateMachine.ChangeState(self, "GrabIdle", null)
 	
 func Exit(Argument):
 	pass

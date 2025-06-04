@@ -4,8 +4,6 @@ extends State
 @export var CheckAirWallCollider : RayCast3D
 @export var FallTimer : Timer
 @export var FloorCollider : RayCast3D
-@export var Model : Node3D
-@export var DebugMoveVis : Node3D
 
 @onready var Animator = %AnimationTree
 var Debug = false
@@ -33,17 +31,6 @@ func Update(delta):
 	if CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
 		_StateMachine.ChangeState(self, "GrabIdle", null)
 		
-		
-func _physics_process(delta: float) -> void:
-	if _StateMachine.CurrentState.name.to_lower() != StateName.to_lower():
-		return
-	var InputDir = Input.get_vector("MoveUp", "MoveDown", "MoveLeft", "MoveRight")
-	var Direction = (_Player.transform.basis * Vector3(InputDir.x, 0.0, InputDir.y)).normalized()
-	if Direction:
-		_Player.velocity.z += -Direction.z * 0.02
-		_Player.velocity.x += -Direction.x * 0.02
-		DebugMoveVis.look_at(Direction + _Player.position)
-		Model.rotation.y = lerp_angle(Model.rotation.y, -DebugMoveVis.rotation.y, 0.2)
 func Exit(Argument):
 	Debug = false
 	time = 1
