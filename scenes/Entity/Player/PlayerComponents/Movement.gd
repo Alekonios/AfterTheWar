@@ -32,8 +32,6 @@ func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta * Gravity
 		
 	move_and_slide()
-	
-	print($Vis/DebugMoveVis.global_rotation)
 	%FpsLabel.text = str(Engine.get_frames_per_second())
 
 

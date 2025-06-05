@@ -18,7 +18,6 @@ func Update(delta):
 		_StateMachine.ChangeState(self, "Fall", null)
 	
 func _physics_process(delta: float) -> void:
-	print(_Player.velocity.z)
 	if _StateMachine.CurrentState.name.to_lower() != StateName.to_lower():
 		return
 	var InputDir = Input.get_vector("MoveUp", "MoveDown", "MoveLeft", "MoveRight")
@@ -46,8 +45,17 @@ func _physics_process(delta: float) -> void:
 				_StateMachine.ChangeState(self, "Jump", Direction )
 	if Input.is_action_pressed("Crouch"):
 		_StateMachine.ChangeState(self, "CrouchIdle", null)
-	if CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
-		_StateMachine.ChangeState(self, "GrabIdle", null)
+	LedgeDetect()
+		
+func LedgeDetect():
+	var WallPoint = CheckWallCollider.get_collision_point()
+	var WallEndPoint = CheckAirWallCollider.get_collision_point()
+	var offset = Vector3(0, 1, 0)
+	if CheckWallCollider.is_colliding():
+		CheckAirWallCollider.global_transform.origin = WallPoint + offset
+		%MeshInstance3D.global_transform.origin = WallEndPoint
+	if CheckWallCollider.global_position.distance_to(WallEndPoint) < 0.3 and CheckWallCollider.global_position.y + 1 >= WallEndPoint.y:
+		_StateMachine.ChangeState(self, "GrabIdle", true)
 	
 func Exit(Argument):
 	pass

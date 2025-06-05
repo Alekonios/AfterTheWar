@@ -24,8 +24,7 @@ func Update(delta):
 		_StateMachine.ChangeState(self, "Fall", null)
 	if Input.is_action_pressed("Crouch"):
 		_StateMachine.ChangeState(self, "CrouchIdle", null)
-	if CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
-		_StateMachine.ChangeState(self, "GrabIdle", null)
+
 		
 func Exit(Argument):
 	pass

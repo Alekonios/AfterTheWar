@@ -2,6 +2,7 @@ extends State
 
 @export var CheckWallCollider : RayCast3D
 @export var CheckAirWallCollider : RayCast3D
+@export var WallMarker : Marker3D
 @export var FallTimer : Timer
 @export var FloorCollider : RayCast3D
 
@@ -15,6 +16,7 @@ func Enter(Argument):
 	Animator.set("parameters/OtherComponents/transition_request", "Fall")
 	
 func Update(delta):
+	LedgeDetect()
 	%DebugLabel.text = str(time)
 	if FloorCollider.is_colliding() and !Debug:
 		FallTimer.stop()
@@ -28,14 +30,24 @@ func Update(delta):
 		_Player.velocity.x = 0.0
 		_Player.velocity.z = 0.0
 		Debug = true
-	if CheckWallCollider.is_colliding() and !CheckAirWallCollider.is_colliding():
-		_StateMachine.ChangeState(self, "GrabIdle", null)
 		
 func Exit(Argument):
 	Debug = false
 	time = 1
 	Animator.set("parameters/OtherComponents/transition_request", "BaseMovement")
 	FallTimer.stop()
+	
+	
+func LedgeDetect():
+	var WallPoint = CheckWallCollider.get_collision_point()
+	var WallEndPoint = CheckAirWallCollider.get_collision_point()
+	var offset = Vector3(0, 1, 0)
+	if CheckWallCollider.is_colliding():
+		CheckAirWallCollider.global_transform.origin = WallPoint + offset
+		%MeshInstance3D.global_transform.origin = WallEndPoint
+		if CheckAirWallCollider.global_position.distance_to(WallEndPoint) < 0.1:
+			_StateMachine.ChangeState(self, "GrabIdle", true)
+			
 	
 #привязка к этой функции через ключ анимации, Дима соси
 func land():

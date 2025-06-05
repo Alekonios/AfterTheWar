@@ -140,6 +140,7 @@ Interact={
 3d_physics/layer_3="Enemy"
 3d_physics/layer_4="PhysObjects"
 3d_physics/layer_5="Hitbox"
+3d_physics/layer_6="GrabEnviroment"
 
 [physics]
 
